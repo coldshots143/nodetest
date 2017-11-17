@@ -1,6 +1,21 @@
-var http = require('http');
-http.createServer(function (req, res){
-res.writeHead(200, {'Content-Type': 'text/plain'});
-res.end('Hello World\n');
-}).listen('192.168.1.43');
-console.log('Server running at http://192.168.1.43:8800/'); 
+var express = require('express');
+var bodyParser = require('body-parser');
+var morgan = require('morgan');
+// var userType = ["admin","manager","cashier","member","therapist","walk_in"];
+
+var app = express();
+
+
+
+// midleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(morgan('dev'))
+    .get('/test',function(req, res)
+    {
+        res.json({msg:"test!"});
+    })
+
+
+app.listen(8800);
